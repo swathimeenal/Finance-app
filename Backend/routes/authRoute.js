@@ -5,7 +5,7 @@ import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 import { Admin } from '../models/adminModel.js';
 
-const router = express.Router();
+const router1 = express.Router();
 
 // Setup NodeMailer transporter
 const transporter = nodemailer.createTransport({
@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Forgot Password - Sends an OTP to the admin's email
-router.post('/forgot-password', async (req, res) => {
+router1.post('/forgot-password', async (req, res) => {
     try {
         const { email } = req.body;
         const admin = await Admin.findOne({ email });
@@ -49,7 +49,7 @@ router.post('/forgot-password', async (req, res) => {
 });
 
 // Reset Password - Resets the admin's password using the OTP
-router.post('/reset-password', async (req, res) => {
+router1.post('/reset-password', async (req, res) => {
     try {
         const { email, otp, newPassword } = req.body;
         const admin = await Admin.findOne({ email });
@@ -74,4 +74,4 @@ router.post('/reset-password', async (req, res) => {
     }
 });
 
-export default router;
+export default router1;

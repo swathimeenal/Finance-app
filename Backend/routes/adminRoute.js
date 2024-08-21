@@ -2,10 +2,10 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import { Admin } from '../models/adminModel';
 
-const router = express.Router();
+const routers = express.Router();
 
 // Admin setup (for initial setup or to create an admin account)
-router.post('/setup', async (req, res) => {
+routers.post('/setup', async (req, res) => {
     try {
         const { username, password, email } = req.body;
         const existingAdmin = await Admin.findOne({ email });
@@ -39,4 +39,4 @@ router.post('/setup', async (req, res) => {
 
 // You can add more admin-related routes here, like admin login, view dashboard, etc.
 
-export default router;
+export default routers;
