@@ -3,9 +3,9 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
-import { Admin } from '../models/adminModel.js';
+import { adminModel } from '../models/adminModel.js';
 
-const router1 = express.Router();
+const router = express.Router();
 
 // Setup NodeMailer transporter
 const transporter = nodemailer.createTransport({
@@ -17,10 +17,10 @@ const transporter = nodemailer.createTransport({
 });
 
 // Forgot Password - Sends an OTP to the admin's email
-router1.post('/forgot-password', async (req, res) => {
+router.post('/forgot-password', async (req, res) => {
     try {
         const { email } = req.body;
-        const admin = await Admin.findOne({ email });
+        const admin = await adminModel.findOne({ email });
 
         if (!admin) {
             return res.status(404).json({ message: "Admin with this email does not exist." });
@@ -49,10 +49,10 @@ router1.post('/forgot-password', async (req, res) => {
 });
 
 // Reset Password - Resets the admin's password using the OTP
-router1.post('/reset-password', async (req, res) => {
+router.post('/reset-password', async (req, res) => {
     try {
         const { email, otp, newPassword } = req.body;
-        const admin = await Admin.findOne({ email });
+        const admin = await adminModel.findOne({ email });
 
         if (!admin) {
             return res.status(404).json({ message: "Admin with this email does not exist." });
@@ -74,4 +74,4 @@ router1.post('/reset-password', async (req, res) => {
     }
 });
 
-export default router1;
+export {router as authRouter} ;

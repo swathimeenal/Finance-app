@@ -1,16 +1,18 @@
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 import {router} from "./routes/clientRoute.js";
-import {routers} from "./routes/adminRoute.js";
-import {router1} from "./routes/authRoute.js";
+import {adminRouter} from "./routes/adminRoute.js";
+import {authRouter} from "./routes/authRoute.js";
+
+
 
 
 dotenv.config()
 const app = express()
 app.use(express.json())
-app.get('/',(req,res)=>{
- res.send("Hello World");});
+//app.get('/',(req,res)=>{
+ //res.send("Hello World");});
 
 //middleware
 app.use((req,res,next)=>{
@@ -19,8 +21,9 @@ app.use((req,res,next)=>{
 })
 
 app.use("/",router)
-app.use("/",routers)
-pp.use("/",router1)
+app.use("/",adminRouter)
+app.use("/",authRouter)
+
 
 
 
